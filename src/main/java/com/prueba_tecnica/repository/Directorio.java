@@ -44,6 +44,22 @@ public class Directorio {
     }
 
     public void deletePersonaByIdentificador(String identificacion){
+
+        Persona persona = entityManager.createQuery(
+            "SELECT p FROM Persona p WHERE p.identificacion = :identificacion", Persona.class)
+            .setParameter("identificacion", identificacion)
+            .getResultStream()
+            .findFirst()
+            .orElse(null);
+        if (persona == null) {
+            return;
+        }
+        Long personaId = persona.getId();
+        
+        entityManager.createQuery("DELETE FROM Factura f where f.persona.id = :personaId")
+            .setParameter("personaId", personaId)
+            .executeUpdate();
+
         entityManager.createQuery(
             "DELETE FROM Persona p WHERE p.identificacion = :identificacion")
             .setParameter("identificacion", identificacion)

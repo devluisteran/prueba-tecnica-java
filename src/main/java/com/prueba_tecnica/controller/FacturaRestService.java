@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prueba_tecnica.entity.Factura;
+import com.prueba_tecnica.exceptions.ResourceNotFoundException;
 import com.prueba_tecnica.service.FacturaRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,9 @@ public class FacturaRestService {
     public ResponseEntity<List<Factura>> getMethodName(@PathVariable long id) {
 
         Optional<List<Factura>> facturas = facturaRepository.findFacturasByPersona(id);
+        if(facturas.isEmpty()){
+            throw new ResourceNotFoundException("No se encontraron facturas para la persona con ID: " + id);
+        }
 
         return facturas.isPresent() ?
             ResponseEntity.ok(facturas.get()) :
