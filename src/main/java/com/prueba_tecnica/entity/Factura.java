@@ -9,6 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,11 +28,17 @@ public class Factura {
     private Long id;
 
     @Column(name = "fecha", nullable = false)
+    @NotNull(message = "La fecha es requerida")
+    @NotBlank(message = "La fecha no puede estar vacía")
     private Date fecha;
 
     @Column(name = "total", nullable = false)
+    @NotNull(message = "El total es requerido")
+    @NotBlank(message = "El total no puede estar vacío")
     private Double total;
 
+    @NotNull(message = "La persona es obligatoria")
+    @NotBlank(message = "La persona no puede estar vacía")
     @ManyToOne
     @JoinColumn(name="persona_id", referencedColumnName = "persona_id")
     private Persona persona;

@@ -7,6 +7,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +15,8 @@ import com.prueba_tecnica.entity.Persona;
 import com.prueba_tecnica.exceptions.BadRequestException;
 import com.prueba_tecnica.exceptions.ResourceNotFoundException;
 import com.prueba_tecnica.service.PersonaRepository;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +38,7 @@ public class DirectorioRestService {
     private PersonaRepository personaRepository;
 
     @PostMapping("/store")
-    public ResponseEntity<Persona> postMethodName(@RequestBody Persona persona) {
+    public ResponseEntity<Persona> postMethodName(@Valid @RequestBody Persona persona) {
         logger.info("Creando nueva persona: " + persona);
 
         Optional<Persona> personaFound = personaRepository.findPersonaByIdentificador(persona.getIdentificacion());

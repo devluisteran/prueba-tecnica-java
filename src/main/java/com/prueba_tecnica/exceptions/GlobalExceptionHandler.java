@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
         exception.getBindingResult().getFieldErrors().forEach(error->errors.put(error.getField(), error.getDefaultMessage()));
 
         String errorMessage = "Errores de validación en los campos: "+String.join(",", errors.keySet());
-        ErrorResponse errorResponse = new ErrorResponse(errorMessage, HttpStatus.BAD_REQUEST.value(), "Validación de datos fallida");
+        ErrorResponse errorResponse = new ErrorResponse(errorMessage, HttpStatus.BAD_REQUEST.value(), errors.toString());
         return new ResponseEntity<>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
