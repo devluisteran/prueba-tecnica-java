@@ -83,7 +83,6 @@ Además está preparado para ejecutarse en contenedor Docker.
 │   └── test/
 │       └── java/
 │           └── com/prueba_tecnica/
-│               └── (tus pruebas aquí)
 │
 ├── target/
 │
