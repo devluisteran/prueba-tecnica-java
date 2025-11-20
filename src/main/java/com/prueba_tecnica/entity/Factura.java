@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,16 +30,14 @@ public class Factura {
 
     @Column(name = "fecha", nullable = false)
     @NotNull(message = "La fecha es requerida")
-    @NotBlank(message = "La fecha no puede estar vacía")
     private Date fecha;
 
     @Column(name = "total", nullable = false)
     @NotNull(message = "El total es requerido")
-    @NotBlank(message = "El total no puede estar vacío")
+    @PositiveOrZero(message = "El total debe ser mayor o igual a cero")
     private Double total;
 
     @NotNull(message = "La persona es obligatoria")
-    @NotBlank(message = "La persona no puede estar vacía")
     @ManyToOne
     @JoinColumn(name="persona_id", referencedColumnName = "persona_id")
     private Persona persona;

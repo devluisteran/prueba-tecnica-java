@@ -34,6 +34,17 @@ public class Directorio {
         return Optional.ofNullable(persona);
     }
 
+    public Optional<Persona> findPersonaById(Long id){
+        Persona persona = entityManager.createQuery(
+            "SELECT p FROM Persona p WHERE p.id = :id", Persona.class)
+            .setParameter("id", id)
+            .getResultStream()
+            .findFirst()
+            .orElse(null);
+
+        return Optional.ofNullable(persona);
+    }
+
     public Optional<List<Persona>> findPersonas(String nombre){
         List<Persona> personas = entityManager.createQuery(
             "SELECT p FROM Persona p WHERE LOWER(p.nombre) like LOWER(:nombre)", Persona.class)

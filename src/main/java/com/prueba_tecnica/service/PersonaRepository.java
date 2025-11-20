@@ -22,6 +22,10 @@ public class PersonaRepository {
         return directorio.findPersonaByIdentificador(identificacion);
     }
 
+    public Optional<Persona>findPersonaById(Long id){
+        return directorio.findPersonaById(id);
+    }
+
     public Optional<List<Persona>> findPersonas(String nombre){
         return directorio.findPersonas(nombre);
     }
